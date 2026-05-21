@@ -1,0 +1,838 @@
+/* ==========================================================================
+   1. VARIABLES & TOKENS
+   Σκοπός: Η "πηγή της αλήθειας" για το design. Κεντρικός έλεγχος χρωμάτων,
+   αποστάσεων και εφέ (Shadows, Radius).
+   ========================================================================== */
+:root {
+    /* Color Palette */
+    --primary: #3498db;
+    --primary-dark: #2980b9;
+    --secondary: #2c3e50;
+    --success: #27ae60;
+    --danger: #e74c3c;
+    --danger-light: #fee2e2;
+    --warning: #f39c12;
+    --info: #16a085;
+
+    /* Neutrals */
+    --bg-light: #f4f7f6;
+    --white: #ffffff;
+    --gray-50:  #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+
+    /* Text */
+    --text-main: #2c3e50;
+    --text-muted: #7f8c8d;
+    --text-on-dark: #ecf0f1;
+
+    /* Components Layout */
+    --sidebar-bg: #1a252f;
+    --sidebar-hover: #243342;
+    --sidebar-width: 260px;
+    --sidebar-collapsed: 70px;
+    --topbar-height: 64px;
+
+    /* Effects & Animations */
+    --radius: 8px;
+    --radius-sm: 4px;
+    --radius-md: 6px;
+
+    --radius-round: 50%;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.08);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --anim-speed: 0.3s;
+    --anim-curve: cubic-bezier(0.4, 0, 0.2, 1);
+    --transition: all var(--anim-speed) var(--anim-curve);
+}
+
+/* ==========================================================================
+   2. RESET & BASE STYLES
+   Σκοπός: Καθαρισμός των default στυλ των browsers και ορισμός βασικής
+   τυπογραφίας (Inter font).
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+/* ==========================================================================
+   3. LAYOUT ENGINE
+   Σκοπός: Ο σκελετός της εφαρμογής (Sidebar + Main Content Area).
+   Διαχειρίζεται τη σταθερή θέση της πλοήγησης και την ευθυγράμμιση
+   του περιεχομένου.
+   ========================================================================== */
+
+/* 3.1 Base Wrapper */
+.app-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* 3.2 Navigation Sidebar */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--sidebar-bg);
+    color: var(--white);
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    transition: width var(--anim-speed) var(--anim-curve);
+    will-change: width;
+}
+
+/* 3.3 Primary Content Area */
+.main-area {
+    flex: 1;
+    margin-left: var(--sidebar-width); /* Δημιουργεί χώρο για τη fixed sidebar */
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 100vh;
+    transition: margin-left var(--anim-speed) var(--anim-curve);
+    will-change: margin-left;
+}
+
+/* 3.4 Inner Content Container
+   Χρησιμοποιείται μέσα στο .main-area για να δώσει "αέρα" (padding)
+   και να περιορίσει το πλάτος σε μεγάλες οθόνες. */
+.main-content {
+    padding: 1.5rem 2rem;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   4. SHARED COMPONENTS (Avatars & Indicators)
+   ========================================================================== */
+.user-avatar-wrapper {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+}
+
+.user-avatar-img,
+.user-avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-round);
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 1px var(--gray-200);
+    object-fit: cover;
+}
+
+.user-avatar-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e1f0fa;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.status-indicator {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: var(--radius-round);
+    border: 2px solid var(--white);
+    z-index: 2;
+}
+.status-indicator.online { background-color: var(--success); }
+.status-indicator.busy   { background-color: var(--danger); }
+
+/* 4.1 Toast Section */
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none; /* Allows clicking "through" the container */
+}
+
+.toast {
+    pointer-events: auto; /* Re-enable clicking for the toast itself (e.g., a close X) */
+    background: var(--secondary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    min-width: 280px;
+    border-left: 4px solid var(--primary); /* Default accent */
+    animation: toastSlideIn 0.3s var(--anim-curve) forwards;
+}
+
+.toast.success { border-left-color: var(--success); }
+.toast.error   { border-left-color: var(--danger); }
+
+@keyframes toastSlideIn {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes toastFadeOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(20px); opacity: 0; }
+}
+
+.toast.fade-out {
+    animation: toastFadeOut 0.5s var(--anim-curve) forwards;
+}
+
+/* Toast Error Style */
+.toast.error {
+    border-left: 4px solid var(--danger);
+}
+.toast.error i {
+    color: var(--danger);
+}
+
+/* Cleaned up Section 5 (Status overrides) */
+.toast.success { border-left-color: var(--success); }
+
+.toast.error {
+    border-left-color: var(--danger);
+}
+
+.toast.error i {
+    color: var(--danger);
+}
+
+/* ==========================================================================
+   5. TOPBAR
+   Σκοπός: Πλοήγηση κορυφής, αναζήτηση και user dropdown.
+   ========================================================================== */
+.top-bar {
+    background: var(--white);
+    width: 100%;
+    height: var(--topbar-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 900;
+}
+
+/* Topbar Left (Burger & Title) */
+.top-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-icon {
+    background: transparent;
+    border: none;
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--secondary);
+    transition: background 0.2s;
+}
+
+.btn-icon:hover { background: var(--gray-100); }
+
+.page-title {
+    font-weight: 700;
+    color: var(--secondary);
+    font-size: 1.1rem;
+}
+
+/* Topbar Right (User Menu) */
+.top-bar-right {
+    display: flex;
+    align-items: center;
+}
+
+.user-menu-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 5px 10px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.user-menu-btn:hover {
+    background: var(--gray-50);
+    border-color: var(--gray-200);
+}
+
+.user-info-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.2;
+}
+
+.user-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+.user-role {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.dropdown-caret {
+    font-size: 0.6rem;
+    color: var(--gray-500);
+    margin-left: 5px;
+}
+
+/* User Dropdown Menu */
+.user-dropdown-container {
+    position: relative;
+}
+
+.user-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 220px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    display: none;
+    z-index: 1001;
+    overflow: hidden;
+    animation: fadeInDown 0.2s ease-out;
+}
+
+.user-dropdown-menu.show { display: block; }
+
+.dropdown-header {
+    padding: 12px 20px;
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.dropdown-item:hover { background: var(--gray-100); color: var(--primary); }
+
+.dropdown-item-logout {
+    color: var(--danger);
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-item-logout:hover {
+    background-color: var(--danger-light, #fee2e2);
+    color: var(--danger);
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   6. SIDEBAR NAV & USER PILL
+   Σκοπός: Διαχείριση της κύριας πλοήγησης και του προφίλ χρήστη στο footer.
+   ========================================================================== */
+
+/* 6.1 Sidebar Branding */
+.sidebar-header {
+    padding: 24px 20px;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--white);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    font-size: 1.4rem;
+}
+
+/* 6.2 Navigation Menu */
+.sidebar-nav {
+    flex: 1;
+    padding: 15px 0;
+    overflow-y: auto;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    color: var(--gray-400);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    border-left: 4px solid transparent; /* Buffer για το active state */
+}
+
+/* Hover & Active States */
+.sidebar-nav li a:hover,
+.sidebar-nav li.active a {
+    background-color: var(--sidebar-hover);
+    color: var(--white);
+}
+
+.sidebar-nav li.active a {
+    border-left-color: var(--primary);
+    background: linear-gradient(90deg, rgba(52, 152, 219, 0.1) 0%, transparent 100%);
+}
+
+/* Sidebar Section Labels */
+.sidebar-nav .nav-label {
+    padding: 20px 20px 10px 25px; /* Adjust padding to match your sidebar's alignment */
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    color: #8898aa; /* Muted color so it doesn't compete with main links */
+    font-weight: 700;
+    list-style: none; /* Removes bullet if inside a <ul> */
+}
+
+/* Optional: Spacing adjustment for the first label */
+li:first-child.nav-label {
+    padding-top: 10px;
+}
+
+.nav-icon {
+    font-size: 1.1rem;
+    width: 24px;
+    text-align: center;
+    display: inline-block;
+}
+
+/* Divider μεταξύ ενοτήτων */
+.nav-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.05);
+    margin: 15px 24px;
+}
+
+/* 6.3 Sidebar Footer & User Pill */
+.sidebar-footer {
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: auto;
+}
+
+.user-pill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.user-pill:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.user-pill .user-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--white);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Fix για το avatar μέσα στο sidebar footer */
+.sidebar-footer .user-avatar-wrapper {
+    flex-shrink: 0;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-round);
+}
+
+/* ==========================================================================
+   7. COLLAPSED STATE
+   ========================================================================== */
+.sidebar.collapsed { width: var(--sidebar-collapsed); }
+.main-area.expanded { margin-left: var(--sidebar-collapsed); }
+
+.sidebar.collapsed .sidebar-header,
+.sidebar.collapsed .sidebar-nav span:not(.nav-icon),
+.sidebar.collapsed .user-name {
+    display: none;
+}
+
+/* ==========================================================================
+   8. GLOBAL MODULE HEADER
+   Σκοπός: Ενιαίο κεφάλι για κάθε σελίδα (Index & Show) όλων των modules.
+   Περιλαμβάνει Τίτλο, Meta-info και Action Buttons.
+   ========================================================================== */
+.module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+/* Grouping για Τίτλο & Υπότιτλο */
+.header-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 1.25rem 0 0;
+}
+
+.module-title {
+    margin: 0;
+    font-size: 1.85rem;
+    color: var(--secondary);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.module-subtitle {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.module-subtitle i {
+    color: var(--primary);
+    font-size: 0.85rem;
+    width: 14px; /* Σταθερό πλάτος για να ευθυγραμμίζονται τα εικονίδια */
+    text-align: center;
+}
+
+/* Grouping για τα Κουμπιά Ενεργειών */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Ενιαίο στυλ για τα κουμπιά ενεργειών (Edit, Delete, κλπ) */
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+    border: 1px solid var(--gray-200);
+    background: var(--white);
+    cursor: pointer;
+}
+
+.btn-action i {
+    font-size: 0.8rem;
+}
+
+/* Χρωματικές παραλλαγές ενεργειών */
+.btn-action.edit {
+    color: var(--primary);
+}
+.btn-action.edit:hover {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+}
+
+.btn-action.delete {
+    color: var(--danger);
+}
+.btn-action.delete:hover {
+    background: var(--danger);
+    color: var(--white);
+    border-color: var(--danger);
+}
+
+/* Utility για inline φόρμες (π.χ. Delete button) */
+.inline-form {
+    display: inline-flex;
+    width: 100%;
+}
+
+/* ==========================================================================
+   9. GLOBAL TABLES & DATA DISPLAY
+   ========================================================================== */
+.table-custom {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-custom th {
+    background-color: var(--gray-50);
+    padding: 14px 20px;
+    text-align: center;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-muted);
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.table-custom td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--gray-100);
+    vertical-align: middle;
+}
+
+/* Action Buttons in Tables
+   ========================================================================== */
+.btn-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px; /* Μικρή απόσταση μεταξύ των εικονιδίων */
+    justify-content: space-around;
+    width: 100%;
+}
+
+/* Ειδική ρύθμιση για το btn-icon μέσα σε πίνακα */
+td .btn-icon {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    background-color: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    color: var(--secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+/* Hover effects */
+td .btn-icon:hover {
+    background-color: var(--white);
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Κόκκινο hover για τη διαγραφή */
+td .btn-icon.text-danger:hover {
+    border-color: var(--danger);
+    background-color: #fff5f5;
+    color: var(--danger) !important;
+}
+
+/* Ευθυγράμμιση για τα εμότζι (επειδή μερικές φορές κάθονται περίεργα) */
+td .btn-icon i,
+td .btn-icon span {
+    line-height: 1;
+}
+
+/* ==========================================================================
+   10. UI ELEMENTS (Cards & Forms)
+   ========================================================================== */
+.card {
+    background-color: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    padding: 20px;
+    margin: 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.status-pill {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.status-active { background: #e6fcf5; color: #0ca678; }
+.status-inactive { background: #fff5f5; color: #fa5252; }
+
+/* Utility Spacing */
+.mb-4 {
+    margin-bottom: 1.5rem !important; /* Roughly 24px of space below the element */
+}
+
+/* --- Custom Checkbox Styling --- */
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.custom-checkbox {
+    display: none; /* Hide the ugly default box */
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-box {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--gray-300);
+    border-radius: 4px;
+    margin-right: 12px;
+    position: relative;
+    transition: var(--transition);
+    background: var(--white);
+}
+
+.checkbox-text {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+/* Checked State */
+.custom-checkbox:checked + .checkbox-label .checkbox-box {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+/* The "Checkmark" icon (White L-shape) */
+.custom-checkbox:checked + .checkbox-label .checkbox-box::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Hover Effect */
+.checkbox-label:hover .checkbox-box {
+    border-color: var(--primary);
+}
+
+/* --- Buttons Base --- */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ==========================================================================
+   11. Tag Styling
+   ========================================================================== */
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.tag-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: white; /* Ή υπολογισμός αντίθεσης */
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   12. RESPONSIVE ENGINE
+   ========================================================================== */
+@media (max-width: 768px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.mobile-open { transform: translateX(0); }
+    .main-area { margin-left: 0 !important; }
+    .module-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+}

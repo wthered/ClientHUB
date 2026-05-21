@@ -1,0 +1,324 @@
+/* ==========================================================================
+   ACCOUNTS MODULE - INDEX LIST
+   ========================================================================== */
+
+/* 1. Layout Wrapper */
+.accounts-container {
+    padding: 2rem;
+    width: 100%;
+}
+
+/* 2. Header Section */
+.accounts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.header-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px; /* Αυτό θα δώσει την απόσταση μεταξύ τίτλου και περιγραφής */
+    text-align: left;
+}
+
+.header-title-group .card-title {
+    margin: 0;
+    color: var(--secondary);
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.header-title-group .text-muted {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* 3. Action Buttons */
+.btn-add-account {
+    background-color: var(--primary);
+    color: var(--white) !important; /* Για να μην επηρεάζεται από global link styles */
+    padding: 12px 24px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition);
+}
+
+.btn-add-account:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-add-account span {
+    font-size: 1.2rem;
+    line-height: 1;
+    font-weight: 400;
+}
+
+/* 4. Table Cell Components */
+.account-info-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.account-brand-icon {
+    width: 42px;
+    height: 42px;
+    background-color: var(--gray-100);
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    font-weight: 800;
+    font-size: 1.1rem;
+    border: 1px solid var(--gray-200);
+    flex-shrink: 0;
+}
+
+.account-details {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.4;
+}
+
+.account-name {
+    font-weight: 600;
+    color: var(--secondary);
+    font-size: 0.95rem;
+}
+
+.account-subtext {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.account-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* 4.1 Contact Info Specifics */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.contact-email {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.contact-email:hover {
+    text-decoration: underline;
+    color: var(--primary-dark);
+}
+
+.contact-phone {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+}
+
+/* 4.2 Assigned User / Employee Cell */
+.assigned-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar-mini {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%; /* Κυκλικό avatar */
+    background-color: var(--gray-100);
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    border: 1px solid var(--gray-200);
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.avatar-mini img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-handle {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    font-weight: 500;
+}
+
+/* 5. Status Pills & Badges */
+.status-pill {
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.status-active {
+    background-color: #e6fffa;
+    color: #2c7a7b;
+    border: 1px solid #b2f5ea;
+}
+
+.status-inactive {
+    background-color: #fff5f5;
+    color: #c53030;
+    border: 1px solid #feb2b2;
+}
+
+/* 6. Row Actions */
+.actions-group {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-action {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    border: 1px solid var(--gray-200);
+    background: var(--white);
+    color: var(--secondary);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-action:hover {
+    background-color: var(--gray-50);
+}
+
+.btn-action.edit:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+    background-color: #ebf4ff;
+}
+
+.btn-action.delete:hover {
+    color: var(--danger);
+    border-color: var(--danger);
+    background-color: #fff5f5;
+}
+
+/* 7. CUSTOM VANILLA PAGINATION */
+.pagination-wrapper {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    background: var(--white);
+    border-top: 1px solid var(--gray-200);
+}
+
+.custom-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pagination-links {
+    display: flex;
+    gap: 6px;
+}
+
+.custom-pagination a,
+.custom-pagination .page-item {
+    padding: 8px 14px;
+    border: 1px solid var(--gray-200);
+    text-decoration: none;
+    color: var(--secondary);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.custom-pagination a:hover {
+    background-color: var(--gray-50);
+    border-color: var(--gray-300);
+}
+
+.custom-pagination .active {
+    background-color: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+}
+
+.custom-pagination .disabled {
+    color: var(--gray-400);
+    background-color: var(--gray-50);
+    cursor: not-allowed;
+}
+
+/* 8. Table Specifics */
+.table-accounts tr {
+    transition: var(--transition);
+}
+
+.table-accounts tr:hover td {
+    background-color: var(--gray-50);
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* Πρόσθεσε αυτά στο accounts/index.css */
+
+.revenue-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.revenue-text {
+    font-weight: 600;
+    color: var(--secondary);
+    font-size: 0.95rem;
+    white-space: nowrap; /* Για να μην σπάει το ποσό σε δύο γραμμές */
+}
+
+.employee-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Αν θέλεις τα νούμερα να είναι ευθυγραμμισμένα δεξιά (συνήθως στα table cells για χρήματα) */
+.text-right {
+    text-align: right;
+}

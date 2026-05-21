@@ -1,0 +1,217 @@
+/* ==========================================================================
+   CONTACTS MODULE - INDEX LIST
+   ========================================================================== */
+
+/* 1. Header Section */
+.contacts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 1.25rem;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-200);
+}
+
+/* 2. Action Buttons */
+.btn-add-contact {
+    background-color: var(--primary);
+    color: var(--white) !important;
+    padding: 10px 20px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition);
+}
+
+.btn-add-contact:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+/* 3. Contact Specific Cells & Smart Avatar */
+.contact-info-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.contact-avatar {
+    width: 42px;
+    height: 42px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.contact-avatar-wrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-round);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--gray-200);
+    background-color: var(--gray-50);
+    transition: var(--transition);
+}
+
+.contact-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.contact-initials-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+/* 4. Name & Badge Styling */
+.contact-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-name {
+    font-weight: 600;
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1.2;
+}
+
+.contact-subtext {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.badge-primary-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--success);
+    border-radius: var(--radius-round);
+    display: inline-block;
+    border: 1.5px solid var(--white);
+    box-shadow: 0 0 0 1px var(--success);
+}
+
+/* 5. Account & Communication */
+.account-link-group, .comms-group, .role-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.account-link, .contact-email {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.account-link:hover, .contact-email:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.industry-tag {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    background: var(--gray-100);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    width: fit-content;
+    border: 1px solid var(--gray-200);
+}
+
+/* 6. Row Actions & Buttons */
+.actions-group {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-action {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    border: 1px solid var(--gray-200);
+    background: var(--white);
+    color: var(--gray-600);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-action.view:hover { color: var(--info); border-color: var(--info); background-color: #e6fffa; }
+.btn-action.edit:hover { color: var(--primary); border-color: var(--primary); background-color: #ebf4ff; }
+.btn-action.delete:hover { color: var(--danger); border-color: var(--danger); background-color: #fff5f5; }
+
+/* 7. Assigned User (Mini Avatar) */
+.assigned-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.avatar-mini {
+    width: 28px;
+    height: 28px;
+    background: var(--gray-100);
+    border-radius: var(--radius-round);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--gray-600);
+    border: 1px solid var(--gray-200);
+}
+
+/* 8. Table Row Hover Effect */
+/* Αυτό θα λειτουργήσει αν οι γραμμές σου είναι μέσα σε .table-custom tbody tr */
+.table-custom tbody tr:hover {
+    background-color: var(--gray-50);
+    transition: background-color 0.2s ease;
+}
+
+/* 9. Utilities */
+.text-end { text-align: right; }
+.empty-state {
+    padding: 4rem 2rem;
+    text-align: center;
+    color: var(--text-muted);
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 2px dashed var(--gray-200);
+}

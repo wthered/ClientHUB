@@ -1,0 +1,82 @@
+/* ==========================================================================
+   PAYMENTS MODULE SPECIFIC (Clean & Optimized)
+   ========================================================================== */
+
+/* 1. Summary Grid Layout */
+.payment-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 0 1.5rem 2rem 1.5rem;
+}
+
+/* 2. Card Styling (Το θεμέλιο των Summary Cards) */
+.summary-card {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.summary-card .label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    letter-spacing: 0.05em;
+}
+
+.summary-card .value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--secondary);
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.02em;
+}
+
+/* 3. Balance Logic (Η έγχρωμη γραμμή αριστερά) */
+.summary-card.balance {
+    border-left: 4px solid var(--danger);
+}
+
+.summary-card.balance.settled {
+    border-left-color: var(--success);
+}
+
+/* 4. Payment Badges & Tables */
+.payment-method-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px;
+    background: var(--gray-100);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--gray-700);
+}
+
+.payment-method-badge i {
+    color: var(--primary);
+    font-size: 0.75rem;
+}
+
+/* 5. Functional Utilities */
+.fw-800 { font-weight: 800; }
+.overflow-hidden { overflow: hidden; }
+.text-end { text-align: right !important; }
+.text-center { text-align: center !important; }
+.text-success { color: var(--success) !important; }
+.text-danger { color: var(--danger) !important; }
+.mx-2 { margin: 0 0.5rem; }
+
+/* 6. Responsive */
+@media (max-width: 992px) {
+    .payment-summary-grid {
+        grid-template-columns: 1fr;
+    }
+}

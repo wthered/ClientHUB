@@ -1,0 +1,77 @@
+/* ==========================================================================
+   Main App Footer
+   ========================================================================== */
+
+.main-footer {
+    background-color: var(--white);
+    border-top: 1px solid var(--gray-200);
+    padding: 20px 0;
+    margin-top: auto; /* Σπρώχνει το footer κάτω αν το περιεχόμενο είναι λίγο */
+    width: 100%;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    max-width: 1600px; /* Συγχρονισμένο με το content-body */
+    margin: 0 auto;
+}
+
+/* 1. Copyright Text */
+.main-footer p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.main-footer strong {
+    color: var(--secondary);
+    font-weight: 700;
+}
+
+/* 2. Footer Links Navigation */
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-links a {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+}
+
+/* 3. Versioning Badge */
+.footer-links .version {
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.75rem;
+    background-color: var(--gray-100);
+    color: var(--gray-500);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--gray-200);
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .footer-links {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}

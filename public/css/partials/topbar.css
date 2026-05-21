@@ -1,0 +1,304 @@
+/* ==========================================================================
+   TOPBAR MAIN STRUCTURE
+   ========================================================================== */
+
+.top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.top-bar-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Μικρή απόσταση μεταξύ των εικονιδίων δράσης */
+}
+
+/****************************************************************************
+* 1. NOTIFICATIONS SECTION
+ ****************************************************************************/
+
+.notifications-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.notifications-toggle-btn {
+    position: relative;
+    background: transparent;
+    border: none;
+    font-size: 1.3rem;
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    color: var(--text-main);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notifications-toggle-btn:hover {
+    background-color: var(--gray-100);
+    color: var(--primary);
+}
+
+/* Το κόκκινο Badge */
+.notification-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background-color: var(--danger);
+    color: var(--white);
+    font-size: 0.65rem;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--white);
+}
+
+/* Dropdown Menu Ειδοποιήσεων */
+.notifications-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: -70px; /* Offset για να κεντράρει καλύτερα κάτω από το bell */
+    width: 320px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    z-index: 1100;
+    display: none; /* Toggle μέσω .show */
+    animation: dropdownFadeIn 0.2s ease;
+}
+
+.notifications-dropdown-menu.show {
+    display: block;
+}
+
+.notifications-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--gray-100);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notifications-header h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.mark-all-read {
+    font-size: 0.75rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.notifications-list {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    display: flex;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--gray-50);
+    transition: background 0.2s;
+}
+
+.notification-item:hover {
+    background-color: var(--gray-50);
+}
+
+.noti-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.noti-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--secondary);
+}
+
+.noti-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.noti-time {
+    font-size: 0.7rem;
+    color: var(--gray-400);
+    margin-top: 4px;
+}
+
+/****************************************************************************
+* 2. LANGUAGE SELECTOR SECTION
+ ****************************************************************************/
+
+.lang-dropdown-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.3rem;
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lang-btn:hover { background-color: var(--gray-100); }
+
+.lang-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    min-width: 160px;
+    display: none;
+    z-index: 1100;
+    overflow: hidden;
+    animation: dropdownFadeIn 0.2s ease;
+}
+
+.lang-dropdown-menu.show { display: block; }
+
+.lang-dropdown-menu .dropdown-item.active {
+    background-color: var(--gray-50);
+    color: var(--primary);
+    font-weight: 700;
+    pointer-events: none;
+}
+
+/****************************************************************************
+* 3. USER DROPDOWN SECTION
+ ****************************************************************************/
+
+.user-dropdown-container {
+    position: relative;
+}
+
+.user-menu-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 12px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--text-main);
+}
+
+.user-menu-btn:hover {
+    background-color: var(--gray-100);
+    border-color: var(--gray-200);
+}
+
+.user-avatar-wrapper {
+    position: relative;
+    width: 38px;
+    height: 38px;
+}
+
+.user-avatar-placeholder, .user-avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 1px var(--gray-200);
+}
+
+.status-indicator {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--white);
+}
+
+.status-indicator.online { background-color: var(--success); }
+
+/* Dropdown Menu Styling */
+.user-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 220px;
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    z-index: 1050;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.user-dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/****************************************************************************
+* 4. UTILITIES & ANIMATIONS
+ ****************************************************************************/
+
+.dropdown-divider {
+    height: 1px;
+    background-color: var(--gray-100);
+    margin: 4px 0;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+
+.dropdown-item:hover {
+    background-color: var(--gray-100);
+    color: var(--primary);
+}
+
+@keyframes dropdownFadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+    .user-info-text, .dropdown-caret { display: none; }
+}

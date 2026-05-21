@@ -1,0 +1,322 @@
+/* ==========================================================================
+   LEADS MODULE - SHOW VIEW (Berlin/Manhattan CRM Design)
+   ========================================================================== */
+
+/**
+ * 1. CORE LAYOUT
+ * Handles the 3-column "Command Center" structure.
+ * Fixed sidebars ensure consistent data visualization on all screens.
+ */
+
+.show-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr 300px;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+/* Base column containers */
+.show-sidebar,
+.show-main,
+.show-status {
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Safety: prevents children from pushing grid width */
+}
+
+/* Stacking and Padding logic for cards within columns */
+.show-sidebar .card,
+.show-main .card,
+.show-status .card {
+    margin-bottom: 1.5rem;
+}
+
+.show-sidebar .card {
+    padding: 1.5rem;
+}
+
+@media (max-width: 1200px) {
+    .show-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/**
+ * 2. MODULE HEADER & PROFILE
+ * Specific styling for the top identity section.
+ */
+
+.module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    margin-bottom: 2rem;
+}
+
+.lead-profile-summary {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.avatar-circle.large {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.2);
+}
+
+.lead-identity {
+    display: flex;
+    flex-direction: column;
+}
+
+.module-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--secondary);
+    margin: 0;
+}
+
+.module-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 2px 0 0 0;
+}
+
+/**
+ * 3. INFORMATION ATOMS
+ * Reusable data point styling (Labels and Values).
+ */
+
+.info-item {
+    margin-bottom: 1.25rem;
+}
+
+.info-item .label {
+    display: block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.info-item .value {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--secondary);
+    line-height: 1.4;
+    word-break: break-all; /* Critical for long emails/URLs */
+}
+
+.info-item .value.bold {
+    font-weight: 800;
+}
+
+.info-item .value.link {
+    color: var(--primary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.info-item .value.link:hover {
+    text-decoration: underline;
+}
+
+.notes-content {
+    line-height: 1.6;
+    color: var(--text-main);
+    white-space: pre-line;
+}
+
+/**
+ * 4. BUTTONS & ACTIONS
+ */
+
+.header-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.btn-action.success {
+    background-color: var(--success);
+    color: var(--white);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-action.success:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.2);
+}
+
+/**
+ * 5. PIPELINE & STATUS VISUALS
+ * High-contrast badges using 10% opacity backgrounds.
+ */
+
+.status-badge-large {
+    padding: 1.25rem;
+    text-align: center;
+    border-radius: var(--radius-sm);
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+}
+
+.status-badge-large.new       { background: rgba(52, 152, 219, 0.1); color: var(--primary); }
+.status-badge-large.contacted { background: rgba(243, 156, 18, 0.1); color: var(--warning); }
+.status-badge-large.qualified { background: rgba(39, 174, 96, 0.1); color: var(--success); }
+.status-badge-large.lost      { background: rgba(231, 76, 60, 0.1); color: var(--danger); }
+
+/* Priority Labels */
+.priority-tag {
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 5px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+}
+
+.priority-tag.urgent {
+    border-color: var(--danger);
+    color: var(--danger);
+    background: rgba(231, 76, 60, 0.05);
+}
+
+/**
+ * 6. FINANCIALS & GRIDS
+ */
+
+.currency-value {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--secondary);
+    text-align: center;
+    letter-spacing: -0.02em;
+}
+
+.company-details-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+/* Utilities */
+.text-muted { color: var(--text-muted); opacity: 0.8; }
+
+/* --- 7. Modal Styling --- */
+/* --- Modal Styles --- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(44, 62, 80, 0.7); /* Use var(--secondary) with opacity */
+    backdrop-filter: blur(4px);
+    display: none; /* Controlled by JS */
+    align-items: center;
+    justify-content: center;
+    z-index: 11000;
+    padding: 20px;
+}
+
+.modal-card {
+    background: var(--white);
+    width: 100%;
+    max-width: 500px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 2rem;
+    animation: modalSlideUp 0.3s var(--anim-curve);
+}
+
+.modal-body {
+    margin: 1.5rem 0;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    margin-top: 5px;
+}
+
+@keyframes modalSlideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* --- 8. RESPONSIVE REFINEMENTS --- */
+@media (max-width: 1200px) {
+    /* Change to 2 columns: Sidebar stays left, Main & Status stack on the right */
+    .show-grid {
+        grid-template-columns: 280px 1fr;
+    }
+
+    .show-status {
+        grid-column: 2; /* Force status to the right column below Main */
+        flex-direction: row; /* Make Status and Value sit side-by-side */
+        gap: 1rem;
+    }
+
+    .show-status .card {
+        flex: 1;
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 992px) {
+    /* Full mobile stack */
+    .show-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .show-sidebar, .show-main, .show-status {
+        grid-column: auto;
+    }
+
+    .show-status {
+        flex-direction: column;
+    }
+
+    /* Adjust header for small screens */
+    .module-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .btn-action {
+        flex: 1;
+        text-align: center;
+    }
+}

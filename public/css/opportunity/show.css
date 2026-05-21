@@ -1,0 +1,281 @@
+/* ==========================================================================
+   1. LAYOUT & CONTAINERS
+   ========================================================================== */
+
+/* Αφαιρούμε τυχόν έξτρα padding αν το global container είναι ήδη μέσα στο main-area */
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 1.5rem;
+    align-items: start;
+    margin-top: 1rem;
+}
+
+/* ==========================================================================
+   2. MODULE SPECIFIC CARDS
+   ========================================================================== */
+
+.card.info-card,
+.card.items-card,
+.card.side-card {
+    margin: 0 0 1.5rem 0;
+    padding: 0;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+}
+
+.card-header {
+    padding: 1rem 1.5rem;
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h3 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.details-grid-horizontal {
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+}
+
+.pipeline-info-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 4px;
+    padding: 2px 8px;
+    background: var(--gray-100); /* Πολύ απαλό γκρι */
+    color: var(--text-muted);
+    border: 1px solid var(--gray-200);
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    width: fit-content;
+}
+
+.pipeline-info-tag i {
+    font-size: 0.65rem;
+    color: var(--gray-500);
+}
+
+.side-details {
+    padding: 1.5rem;
+}
+
+/* ==========================================================================
+   3. DATA DISPLAY & TABLES
+   ========================================================================== */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table thead th {
+    background: var(--gray-50);
+    padding: 12px 20px;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    text-align: left;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+/* Zebra striping για τις γραμμές του πίνακα */
+.data-table tbody tr:nth-child(even) {
+    background-color: var(--gray-50); /* Ένα πολύ απαλό γκρι-λευκό */
+}
+
+/* Hover εφέ για να ξεχωρίζει η γραμμή που κοιτάμε */
+.data-table tbody tr:hover {
+    background-color: #f1f5f9; /* Ελαφρώς πιο έντονο γκρι στο hover */
+    transition: background-color 0.2s ease;
+}
+
+.data-table tbody td {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--gray-100);
+    vertical-align: middle;
+}
+
+/* ==========================================================================
+   4. BADGES, INDICATORS & TIMELINE
+   ========================================================================== */
+
+/* Status Badge (Header) */
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+/* Probability Elements */
+.probability-pill {
+    color: var(--white);
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.probability-bar-container {
+    background: var(--gray-200);
+    height: 8px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.probability-bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.8s var(--anim-curve);
+}
+
+/* Timeline */
+.timeline-compact {
+    padding: 1.5rem;
+}
+
+.timeline-event {
+    position: relative;
+    padding-left: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-left: 2px solid var(--gray-200);
+}
+
+.timeline-event:last-child {
+    border-left: 2px solid transparent; /* Σταματάει η γραμμή στο τελευταίο event */
+    padding-bottom: 0;
+}
+
+.timeline-event::before {
+    content: '';
+    position: absolute;
+    left: -6px; /* Κεντράρισμα πάνω στη γραμμή */
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    background: var(--primary);
+    border: 2px solid var(--white);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+/* Collab Badges (Sidebar) */
+.collab-badge {
+    display: inline-block;
+    background: var(--gray-100);
+    color: var(--secondary);
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin: 2px;
+    border: 1px solid var(--gray-200);
+}
+
+/* ==========================================================================
+   5. TYPOGRAPHY & UTILITIES
+   ========================================================================== */
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.detail-item label, .user-item label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    display: block;
+}
+
+.detail-item span.bold, .item-name, .user-info strong {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--secondary);
+}
+
+.detail-item small {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+.text-right { text-align: right; }
+.flex-align-center { display: flex; align-items: center; }
+
+/* Styling για τα Links μέσα στις κάρτες */
+.link-styled {
+    text-decoration: none;
+    color: var(--secondary);
+    transition: color 0.2s;
+}
+
+.link-styled:hover {
+    color: var(--primary);
+}
+
+.link-styled i {
+    margin-right: 5px;
+    font-size: 0.85rem;
+    color: var(--gray-400);
+}
+
+/* Tag Badges (αν δεν υπάρχουν στο global) */
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.tag-badge {
+    padding: 2px 10px;
+    border-radius: 4px;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* Utility για καθυστερημένες ημερομηνίες */
+.text-danger {
+    color: var(--danger) !important;
+}
+
+/* ==========================================================================
+   6. RESPONSIVE ENGINE
+   ========================================================================== */
+@media (max-width: 1200px) {
+    .grid-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .module-sidebar {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        width: 100%;
+    }
+}

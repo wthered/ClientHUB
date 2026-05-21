@@ -1,0 +1,175 @@
+/* ==========================================================================
+   INVOICE SPECIFIC OVERRIDES
+   ========================================================================== */
+
+/* Status Badges για Τιμολόγια */
+.event-paid {
+    background-color: #e3f9e5;
+    color: #1f7a33;
+    border: 1px solid #b7eb8f;
+}
+
+.event-unpaid {
+    background-color: #fffbe6;
+    color: #d48806;
+    border: 1px solid #ffe58f;
+}
+
+.event-overdue {
+    background-color: #fff1f0;
+    color: #cf1322;
+    border: 1px solid #ffa39e;
+}
+
+.event-draft {
+    background-color: var(--gray-100);
+    color: var(--gray-600);
+    border: 1px solid var(--gray-300);
+}
+
+.event-cancelled {
+    background-color: #f5f5f5;
+    color: #8c8c8c;
+    text-decoration: line-through;
+}
+
+/* Table Rows Utility */
+.table-custom tbody tr:hover {
+    background-color: rgba(52, 152, 219, 0.03); /* Πολύ ελαφρύ primary hover */
+}
+
+/* Money formatting colors */
+.bold {
+    color: var(--secondary);
+    font-weight: 600;
+}
+
+.text-end {
+    text-align: right !important;
+}
+
+/* Pagination Customization */
+.card-footer {
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem;
+    background: var(--white);
+    border-top: 1px solid var(--gray-200);
+}
+
+/* Responsive Table Wrapper */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ==========================================================================
+   INVOICE FILTER SYSTEM
+   ========================================================================== */
+
+.filter-grid {
+    display: grid;
+    /* Search: 1.5fr (μεγαλύτερο)
+       Status: 1fr
+       Dates: 1fr το καθένα
+       Actions: auto (όσο χρειάζεται)
+    */
+    grid-template-columns: 1.5fr 1fr 1fr 1fr auto;
+    gap: 1.25rem;
+    align-items: flex-end; /* Ευθυγράμμιση των inputs στο κάτω μέρος ώστε να είναι στην ίδια γραμμή με τα labels */
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filter-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    letter-spacing: 0.03em;
+}
+
+/* Φινίρισμα στα Inputs & Selects */
+.form-control, .form-select {
+    height: 42px; /* Σταθερό ύψος για όλα */
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 0.85rem;
+    font-size: 0.9rem;
+    color: var(--secondary);
+    background-color: var(--white);
+    transition: var(--transition);
+}
+
+.form-control:focus, .form-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Filter Actions Button Group */
+.filter-actions {
+    display: flex;
+    gap: 8px;
+    height: 42px; /* Ίδιο ύψος με τα inputs */
+}
+
+.filter-actions .btn-primary {
+    padding: 0 20px;
+    height: 100%;
+    font-weight: 600;
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-actions .btn-secondary {
+    width: 42px; /* Τετράγωνο κουμπί reset */
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--gray-100);
+    color: var(--gray-600);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+}
+
+.filter-actions .btn-secondary:hover {
+    background-color: var(--gray-200);
+    color: var(--secondary);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 1024px) {
+    .filter-grid {
+        grid-template-columns: 1fr 1fr; /* 2 στήλες σε tablets */
+    }
+    .filter-actions {
+        grid-column: span 2;
+        justify-content: flex-end;
+    }
+}
+
+@media (max-width: 640px) {
+    .filter-grid {
+        grid-template-columns: 1fr; /* 1 στήλη σε κινητά */
+    }
+    .filter-actions {
+        grid-column: span 1;
+    }
+    .filter-actions .btn-primary {
+        flex: 1;
+    }
+}

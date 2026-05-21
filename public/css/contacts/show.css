@@ -1,0 +1,181 @@
+/* --- Layout Engine --- */
+.main-content-container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.show-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 2rem; /* Increased gap for a cleaner look */
+    align-items: start;
+}
+
+/* --- Sidebar Card --- */
+.profile-card {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    background-color: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    /* Removed margin: 1.5rem to let the grid gap handle it */
+    box-shadow: var(--shadow-sm);
+    position: sticky; /* Keep profile visible while scrolling through long notes */
+    top: 100px;
+}
+
+/* --- The Avatar Container --- */
+.profile-avatar-large {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1.25rem;
+
+    /* Perfect Circle */
+    border-radius: 50%;
+
+    /* The "Beautification" Borders */
+    background: var(--white);
+    border: 4px solid var(--white); /* Inner white ring */
+    box-shadow:
+            0 0 0 1px var(--gray-200),  /* Thin outer hairline */
+            var(--shadow-md);           /* Soft depth shadow */
+
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Clips the image to the circle */
+    position: relative;
+    transition: var(--transition);
+}
+
+/* --- The Image Itself --- */
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the face is centered and fills the circle */
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+/* --- Interactive Polish --- */
+/* Highlight border on hover */
+.profile-avatar-large:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 1px var(--primary), var(--shadow-lg);
+}
+
+.profile-avatar-large:hover .avatar-img {
+    transform: scale(1.05); /* Subtle zoom effect */
+}
+
+/* --- Contact Quick Stats --- */
+.profile-stats {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 1.5rem 0;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--gray-100);
+    border-bottom: 1px solid var(--gray-100);
+    background-color: var(--gray-50); /* Ελαφρύ background για να ξεχωρίζει */
+    border-radius: var(--radius-sm);
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.stat-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--secondary);
+    display: block;
+}
+
+.stat-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 800;
+    color: var(--text-muted);
+}
+
+.stat-divider {
+    width: 1px;
+    height: 25px;
+    background-color: var(--gray-200);
+}
+
+.profile-name {
+    margin-bottom: 0.25rem;
+    color: var(--secondary);
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+/* --- Content Cards --- */
+.show-content .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.card-section-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--secondary);
+    margin-bottom: 1.5rem;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--gray-100);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- Data Display --- */
+.location-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.location-grid p {
+    margin-top: 6px;
+    font-size: 1rem;
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.notes-body {
+    background: var(--gray-50);
+    padding: 1.5rem;
+    border-radius: var(--radius-sm);
+    border-left: 4px solid var(--primary); /* Use primary color for the accent */
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--secondary);
+}
+
+/* --- Utilities --- */
+.info-item { margin-bottom: 1.5rem; }
+.info-item label { display: block; font-size: 0.65rem; text-transform: uppercase; font-weight: 800; color: var(--text-muted); margin-bottom: 5px; letter-spacing: 0.05em; }
+.info-item span, .info-item a { font-weight: 600; color: var(--secondary); text-decoration: none; }
+.info-item a:hover { color: var(--primary); }
+
+.status-pill { padding: 5px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; }
+.status-active { background: #e6fcf5; color: #0ca678; border: 1px solid rgba(12, 166, 120, 0.2); }
+.status-inactive { background: var(--gray-100); color: var(--text-muted); }
+
+/* --- Responsive --- */
+@media (max-width: 992px) {
+    .show-grid { grid-template-columns: 1fr; }
+    .profile-card { position: static; margin-bottom: 1.5rem; }
+}

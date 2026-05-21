@@ -1,0 +1,223 @@
+/* ==========================================================================
+   OPPORTUNITIES MODULE - COMPLETE CONSOLIDATED STYLES
+   ========================================================================== */
+
+:root {
+    --primary: #3b82f6;
+    --secondary: #1e293b;
+    --success: #10b981;
+    --danger: #ef4444;
+    --text-main: #334155;
+    --text-muted: #64748b;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --radius: 12px;
+    --radius-sm: 6px;
+    --transition: all 0.2s ease;
+}
+
+/* --- 1. Header & Layout --- */
+.module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 1rem;
+}
+
+.header-title-group .module-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--secondary);
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.header-title-group .module-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 4px 0 0 0;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* --- 2. Filter Section --- */
+.filter-section.card {
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.filter-form {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 220px;
+}
+
+.form-input, .form-select {
+    width: 100%;
+    height: 42px;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    background-color: #fff;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    outline: none;
+}
+
+.form-input:focus, .form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+    padding-right: 2.5rem;
+}
+
+/* --- 3. Data Table --- */
+.table-container {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.data-table thead th {
+    background: var(--gray-50);
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-bottom: 2px solid var(--gray-100);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+.data-table tbody td {
+    padding: 16px;
+    border-bottom: 1px solid var(--gray-100);
+    vertical-align: middle;
+}
+
+.data-table tbody tr:hover {
+    background-color: var(--gray-50);
+}
+
+/* --- 4. Content Elements (The "Berlin" Details) --- */
+.item-main {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.4;
+}
+
+.item-name {
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.item-name:hover { text-decoration: underline; }
+
+.item-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.company-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--gray-100);
+    color: var(--text-main);
+    font-size: 0.8rem;
+    border-radius: 4px;
+}
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.probability-pill {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px solid var(--gray-200);
+    color: var(--text-muted);
+}
+
+/* --- 5. Actions & Buttons --- */
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.btn-action.success { background: var(--success); color: white; }
+.btn-action.success:hover { background: #059669; transform: translateY(-1px); }
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.action-buttons form { display: inline-flex; }
+
+.btn-icon {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    border: 1px solid var(--gray-200);
+    background: white;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-icon.edit:hover { background: var(--primary); color: white; }
+.btn-icon.success:hover { background: var(--success); color: white; }
+
+/* --- 6. Helpers & Responsive --- */
+.text-right { text-align: right; }
+.bold { font-weight: 700; }
+.text-open { color: var(--primary); }
+
+@media (max-width: 768px) {
+    .module-header { flex-direction: column; align-items: flex-start; }
+    .header-actions, .btn-action { width: 100%; justify-content: center; }
+    .filter-group { flex: 1 1 100%; }
+}

@@ -1,0 +1,62 @@
+.custom-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    font-family: sans-serif;
+    width: 100%;
+}
+
+.page-numbers {
+    display: flex;
+    gap: 5px;
+}
+
+.custom-pagination a,
+.custom-pagination span {
+    padding: 8px 14px;
+    border: 1px solid #e2e8f0;
+    text-decoration: none;
+    color: #4a5568;
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+
+.custom-pagination a:hover {
+    background-color: #f7fafc;
+    border-color: #cbd5e0;
+}
+
+.custom-pagination .current {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.custom-pagination .disabled {
+    color: #a0aec0;
+    cursor: not-allowed;
+    background-color: #edf2f7;
+}
+
+.custom-pagination .dots {
+    border: none;
+}
+
+.pagination-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Κεντράρισμα του pagination στη σελίδα */
+    padding: 2rem 0;
+}
+
+.custom-pagination {
+    gap: 20px; /* Απόσταση μεταξύ βελών και αριθμών */
+}
+
+.custom-pagination .current {
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}

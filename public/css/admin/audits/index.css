@@ -1,0 +1,280 @@
+/* ==========================================================================
+   AUDIT LOGS SPECIFIC STYLES
+   Σκοπός: Διαχείριση των logs, των συγκρίσεων δεδομένων (diffs) και
+   της οπτικοποίησης του ιστορικού ενεργειών.
+   ========================================================================== */
+
+/* ==========================================================================
+   AUDIT HEADER SECTION
+   ========================================================================== */
+
+.audit-header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Ευθυγράμμιση στη βάση για πιο "δεμένο" look */
+    margin-bottom: 2rem;
+    padding: 0 0.5rem; /* Λίγο αέρα στις άκρες */
+}
+
+/* Ειδική μορφοποίηση για το badge του συνόλου εγγραφών */
+.audit-stats-pill {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    padding: 8px 16px;
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.audit-stats-pill:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary);
+}
+
+.audit-stats-pill .label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+}
+
+.audit-stats-pill .value {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--secondary);
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+    .audit-header-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .audit-stats-pill {
+        align-items: flex-start;
+        width: 100%;
+    }
+}
+
+/* 1. Filter Bar & Stats Box */
+.audit-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-pill {
+    background: var(--white);
+    padding: 1.25rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-pill .label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--gray-500);
+}
+
+.stat-pill .value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--secondary);
+}
+
+/* 2. Action Badges */
+.action-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.action-created {
+    background: #e6fcf5;
+    color: var(--success);
+    border: 1px solid #c3fae8;
+}
+
+.action-updated {
+    background: #e7f5ff;
+    color: var(--primary);
+    border: 1px solid #d0ebff;
+}
+
+.action-deleted {
+    background: #fff5f5;
+    color: var(--danger);
+    border: 1px solid #ffe3e3;
+}
+
+/* Πρόσθετες κλάσεις για τα Action Badges */
+
+/* Login & Auth Events */
+.action-login {
+    background: #f3f0ff;
+    color: #845ef7;
+    border: 1px solid #e5dbff;
+}
+
+.action-logout {
+    background: #fff9db;
+    color: #f08c00;
+    border: 1px solid #fff3bf;
+}
+
+/* Status Changes (Πορτοκαλί/Info για ροή διαδικασίας) */
+.action-status_change {
+    background: #fff4e6;
+    color: #fd7e14;
+    border: 1px solid #ffe8cc;
+}
+
+/* Συμπληρωματικές κλάσεις αν χρειαστούν */
+.action-view {
+    background: #f8f9fa;
+    color: var(--gray-600);
+    border: 1px solid var(--gray-200);
+}
+
+.action-sync {
+    background: #e3fafc;
+    color: #0c8599;
+    border: 1px solid #c5f6fa;
+}
+
+/* Hover effect για τα badges (προαιρετικό) */
+.action-badge:hover {
+    filter: brightness(0.95);
+    cursor: default;
+}
+
+/* 3. Diff Visualizer (The "Changes" Column) */
+.diff-container {
+    background: var(--gray-50);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+}
+
+.diff-toggle {
+    width: 100%;
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.diff-content {
+    display: none; /* Ενεργοποιείται μέσω JS (class .active) */
+    padding: 12px;
+    background: var(--gray-900);
+    color: #a5d6ff;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    max-height: 250px;
+    overflow-y: auto;
+    border-top: 1px solid var(--gray-800);
+}
+
+.diff-content.show {
+    display: block;
+}
+
+.change-row {
+    margin-bottom: 4px;
+    padding: 2px 0;
+}
+
+.change-key {
+    color: var(--warning);
+    font-weight: bold;
+}
+
+.change-old {
+    color: var(--danger);
+    text-decoration: line-through;
+    opacity: 0.8;
+}
+
+.change-new {
+    color: var(--success);
+}
+
+/* 4. Entity Identifier */
+.entity-pill {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.entity-type {
+    font-weight: 700;
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+
+.entity-id {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: monospace;
+}
+
+/* 5. Metadata (IP, Browser) */
+.meta-info {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.meta-info i {
+    width: 14px;
+    text-align: center;
+    margin-right: 4px;
+}
+
+/* 6. Pagination Styling Overrides */
+.pagination-wrapper {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-wrapper .page-link {
+    padding: 8px 16px;
+    border: 1px solid var(--gray-300);
+    background: var(--white);
+    color: var(--secondary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.pagination-wrapper .active .page-link {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+}

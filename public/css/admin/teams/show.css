@@ -1,0 +1,481 @@
+/* ==========================================================================
+   TEAM DETAILS - STRUCTURED SECTIONS (Refactored for Global Compatibility)
+   ========================================================================== */
+
+/* --- SECTION 1: MODULE HEADER & BREADCRUMBS --- */
+/* Χρησιμοποιούμε .main-content για να είμαστε σίγουροι ότι υπερισχύει του global */
+.main-content .module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2.5rem;
+    padding: 0 0 1.5rem 0; /* Reset global padding */
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.breadcrumb-nav {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gray-400);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.breadcrumb-nav a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+/* ==========================================================================
+   TEAM SHOW - SPECIFIC STYLES
+   ========================================================================== */
+
+.header-divider {
+    color: var(--gray-300);
+    margin: 0 8px;
+}
+
+.company-context {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--gray-100);
+    padding: 2px 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--gray-200);
+}
+
+/* Meta Information Grid */
+.team-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.meta-card {
+    background: var(--white);
+    padding: 1.25rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.meta-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--gray-500);
+    letter-spacing: 0.05em;
+}
+
+.meta-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.meta-value i {
+    color: var(--primary);
+    width: 20px;
+}
+
+/* Status Badges */
+.status-pill {
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: inline-block;
+    width: fit-content;
+}
+
+.status-active { background: #e6fcf5; color: #0ca678; }
+.status-inactive { background: #fff5f5; color: #fa5252; }
+
+.mt-4 { margin-top: 1.5rem; }
+
+/* --- SECTION 2: LAYOUT GRID --- */
+.team-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    padding: 0;
+}
+
+/* --- SECTION 3: CARDS & CONTAINERS --- */
+/* Reset global card margins για να δουλέψει σωστά το grid */
+.team-grid .card {
+    margin: 0 0 1.5rem 0;
+    padding: 0; /* Τα cards στο show έχουν headers, οπότε το padding πάει στο περιεχόμενο */
+}
+
+.card-header-simple,
+.card-header-between {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--gray-100);
+    background: var(--white);
+}
+
+.card-header-simple {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.unassigned-border {
+    border: 2px solid #dc2626 !important; /* Χρησιμοποιούμε το κόκκινο που έχεις ήδη */
+}
+
+/* --- SECTION 4: TEAM INFO & PILLS --- */
+.info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.5rem;
+}
+
+.info-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    margin-bottom: 0.5rem;
+}
+
+/* Override global .user-pill για το team view */
+.info-item .user-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: var(--gray-50);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--gray-100);
+    cursor: default; /* Δεν είναι menu link εδώ */
+}
+
+/* Πρόσθεσέ τα στο Section 4 */
+.leader-display-box.is-empty {
+    background-color: #fff5f5;
+    padding: 1rem;
+    border-radius: var(--radius-sm);
+    text-align: center;
+    border: 1px dashed #dc2626;
+}
+
+.unassigned-warning {
+    color: #dc2626;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85rem;
+}
+
+.user-meta {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.user-meta small {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+}
+
+/* --- SECTION 5: AVATARS & PLACEHOLDERS --- */
+.avatar-sm {
+    width: 32px;
+    height: 32px;
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: var(--radius-round); /* 50% από το global */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    overflow: hidden; /* Κρίσιμο: Κόβει την εικόνα που περισσεύει */
+    border: 1px solid var(--gray-200); /* Προαιρετικό: Ένα λεπτό περίγραμμα */
+}
+
+.avatar-sm img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Διατηρεί τις αναλογίες χωρίς να παραμορφώνει το πρόσωπο */
+    display: block;
+}
+
+.avatar-sm.avatar-placeholder {
+    background-color: #fee2e2;
+    color: #dc2626;
+    border: 2px solid #fecaca;
+}
+
+/* Πρόσθεσέ τα στο Section 5 */
+.avatar-md {
+    width: 48px;
+    height: 48px;
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: var(--radius-round);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.avatar-md img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-round);
+}
+
+.leader-badge {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    background: #ffc107; /* Το χρυσό για το στέμμα */
+    color: #000;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    font-size: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--white);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* --- SECTION 6: DATA TABLES & BADGES --- */
+
+/* Ο βασικός σκελετός του Badge */
+.badge-role {
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid transparent;
+    transition: var(--transition);
+}
+
+/* Συγκεκριμένα χρώματα ανά ρόλο */
+.badge-admin {
+    background-color: #f5f3ff; /* Απαλό μωβ */
+    color: #7c3aed;
+    border-color: #ddd6fe;
+}
+
+.badge-leader {
+    background-color: #fffbeb; /* Απαλό χρυσό */
+    color: #b45309;
+    border-color: #fef3c7;
+}
+
+.badge-member {
+    background-color: #f0f9ff; /* Απαλό μπλε */
+    color: #0369a1;
+    border-color: #e0f2fe;
+}
+
+.badge-viewer {
+    background-color: var(--gray-50);
+    color: var(--gray-500);
+    border-color: var(--gray-200);
+}
+
+/* Ευθυγράμμιση Avatar και Ονόματος στον πίνακα */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* --- SECTION 7: BUTTONS & FORMS --- */
+
+/* Προσθήκη padding στη φόρμα για να μην ακουμπάει στα τοιχώματα */
+.add-member-card form {
+    padding: 1.5rem;
+}
+
+.add-member-card .form-group {
+    margin-bottom: 1rem;
+}
+
+.add-member-card .btn-primary {
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+/* Ειδικά για τη φόρμα στη sidebar θέλουμε το κουμπί full width */
+.add-member-card .btn-primary {
+    width: 100%;
+}
+
+.btn-primary.btn-outline {
+    background-color: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    width: auto; /* Το outline button στο header δεν πρέπει να είναι 100% */
+}
+
+.btn-primary.btn-outline:hover {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.form-select {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    color: var(--secondary);
+}
+
+.btn-view-details {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    background: var(--gray-100);
+    color: var(--gray-600);
+    border: none;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.btn-view-details.btn-delete:hover {
+    background-color: #fff1f0;
+    color: var(--danger);
+}
+
+/* --- Leader Star Styling --- */
+.leader-form {
+    display: inline-flex;
+    margin-right: 8px;
+}
+
+.btn-star {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--gray-300);
+    font-size: 1.1rem;
+    transition: var(--transition);
+}
+
+.btn-star:hover {
+    color: var(--warning);
+    transform: scale(1.2);
+}
+
+.btn-star.is-leader {
+    color: var(--warning);
+}
+
+.form-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--gray-600);
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+}
+
+/* Animation για το αστεράκι κατά το promotion */
+.btn-star.promoting {
+    transform: scale(1.3);
+    opacity: 0.8;
+}
+
+/* Tooltip αίσθηση στο hover */
+.btn-star:not(.is-leader):hover i {
+    filter: drop-shadow(0 0 5px var(--warning));
+}
+
+/* --- SECTION 8: UTILITIES & RESPONSIVE --- */
+.pill-danger {
+    background-color: #fef2f2 !important;
+    border-color: #fee2e2 !important;
+}
+
+.text-danger { color: #dc2626 !important; }
+.bold { font-weight: 600; }
+.text-end { text-align: right; }
+
+@media (max-width: 1100px) {
+    .team-grid { grid-template-columns: 1fr; }
+}
+
+/* --- SECTION 9: Toasting --- */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.custom-toast {
+    background: var(--white);
+    border-left: 4px solid #10b981; /* Success Green */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    padding: 1rem 1.5rem;
+    margin-bottom: 10px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transform: translateX(120%);
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    min-width: 300px;
+}
+
+.custom-toast.show {
+    transform: translateX(0);
+}
+
+.custom-toast i {
+    color: #10b981;
+    font-size: 1.2rem;
+}
+
+.toast-message {
+    font-weight: 600;
+    color: var(--secondary);
+    font-size: 0.9rem;
+}

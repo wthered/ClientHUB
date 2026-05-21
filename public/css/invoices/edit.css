@@ -1,0 +1,373 @@
+/* ==========================================================================
+   INVOICE EDIT PAGE - SPECIFIC STYLING
+   ========================================================================== */
+
+/* 1. LAYOUT GRID */
+.edit-grid {
+    padding-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+    align-items: start;
+    margin-bottom: 3rem;
+}
+
+@media (max-width: 1200px) {
+    .edit-grid { grid-template-columns: 1fr; }
+    .edit-sidebar .sticky-sidebar { position: static; }
+}
+
+/* 2. CARD ENHANCEMENTS */
+.edit-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.card-header-simple {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.card-header-simple h5 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--secondary);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-header-simple h5 i { color: var(--primary); }
+
+.flex-between { justify-content: space-between; }
+
+/* 3. FORM CONTROLS */
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 8px;
+}
+
+.form-control, .form-select {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    background-color: var(--white);
+    color: var(--gray-900);
+    transition: var(--transition);
+}
+
+.form-control:focus, .form-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
+}
+
+/* Ευθυγράμμιση σειράς */
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem; /* Απόσταση ανάμεσα στα groups */
+}
+
+/* Το form-group ως κολώνα */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    flex: 0 0 calc(50% - 0.75rem);
+}
+
+/* Styling για τα labels μέσα στο group */
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 8px;
+}
+
+/**
+ * 4. LINE ITEMS TABLE
+ * Διαχείριση δυναμικού πίνακα προϊόντων/υπηρεσιών.
+ */
+.table-edit-items {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Επιβολή αυστηρών πλατών στις στήλες */
+    margin-top: 1rem;
+}
+
+/* 4.1 Column Definitions */
+.col-product     { width: 20%; }
+.col-description { width: 30%; }
+.col-qty         { width: 10%; }
+.col-unit-price  { width: 15%; }
+.col-amount      { width: 20%; }
+.col-actions     { width: 5%; }
+
+.unit-price-input:focus {
+    border-color: var(--primary);
+    background-color: #f0f7ff; /* Ένα πολύ απαλό μπλε για να δείχνει editable */
+}
+
+/* Προσθήκη για καλύτερη εμφάνιση των αριθμητικών πεδίων */
+.text-center { text-align: center; }
+.text-end    { text-align: right; }
+
+/* Styling για το readonly amount input */
+.table-edit-items .form-control[readonly] {
+    background-color: var(--gray-100);
+    border-style: dashed;
+    cursor: not-allowed;
+    font-weight: 700;
+}
+
+/* 4.2 Headers & Cells */
+.table-edit-items th {
+    padding: 12px 10px;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid var(--gray-100);
+}
+
+.table-edit-items td {
+    padding: 12px 10px;
+    vertical-align: middle; /* Κεντράρισμα για να ευθυγραμμίζονται με το κουμπί delete */
+}
+
+/* 4.3 Form Inputs inside Table */
+.table-edit-items .form-control {
+    width: 100%;
+    background-color: var(--gray-50); /* Ελαφριά διαφοροποίηση από το φόντο της κάρτας */
+    border-color: var(--gray-200);
+}
+
+.table-edit-items .form-control:focus {
+    background-color: var(--white);
+    border-color: var(--primary);
+}
+
+/* Προσθήκη στο section 4.3 του CSS σου */
+.amount-input {
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+/* 4.4 Row Actions & Buttons */
+.btn-remove-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    margin: 0 auto;
+    background: #fff5f5;
+    color: var(--danger);
+    border: 1px solid #fed7d7;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-remove-row:hover {
+    background: var(--danger);
+    color: var(--white);
+    border-color: var(--danger);
+}
+
+.btn-add-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--white);
+    color: var(--success);
+    border: 1.5px dashed var(--success);
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-add-item:hover {
+    background: var(--success);
+    color: var(--white);
+}
+
+/* 5. SIDEBAR & TOTALS */
+.sticky-sidebar {
+    position: sticky;
+    top: calc(var(--topbar-height) + 20px);
+}
+
+.totals-preview {
+    background: var(--gray-50);
+    padding: 1.25rem;
+    border-radius: var(--radius-md);
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: var(--gray-600);
+}
+
+.total-row.grand-total {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 2px solid var(--gray-200);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--primary);
+}
+
+.form-divider {
+    border: 0;
+    border-top: 1px solid var(--gray-200);
+    margin: 1.5rem 0;
+}
+
+/* 6. ACTION BUTTONS */
+.btn-primary-lg {
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 10px 24px;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition);
+    box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-primary-lg:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(52, 152, 219, 0.3);
+}
+
+.small-text { font-size: 0.85rem; }
+.mt-4 { margin-top: 1.5rem; }
+
+/* 6. ACTION BUTTONS */
+.btn-primary-lg {
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 10px 24px;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition);
+    box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-primary-lg:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(52, 152, 219, 0.3);
+}
+
+/* Το νέο κουμπί που φτιάξαμε */
+.btn-secondary-sm {
+    background-color: var(--white);
+    color: var(--gray-700);
+    border: 1px solid var(--gray-300);
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.btn-secondary-sm:hover {
+    background-color: var(--gray-50);
+    border-color: var(--gray-400);
+    color: var(--secondary);
+}
+
+/* 7. QUICK PAYMENTS (Sidebar Section) */
+.payment-quick-form {
+    background: var(--white);
+    padding: 0.5rem 0;
+}
+
+#quick-payment-amount {
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-weight: 700;
+    color: var(--secondary);
+    border-color: var(--gray-200);
+    text-align: right;
+}
+
+/* Αν θες να φαίνεται πιο "λογιστικό" το input όταν εστιάζει */
+#quick-payment-amount:focus {
+    background-color: #f0fdf4; /* Πολύ απαλό πράσινο του χρήματος */
+    border-color: var(--success);
+}
+
+/* Link για το ιστορικό πληρωμών στο sidebar */
+/* Container για το link του ιστορικού */
+.history-container {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--gray-200); /* Διακριτικός διαχωρισμός από το κουμπί */
+    text-align: center;
+}
+
+.view-history-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--gray-500);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.view-history-link:hover {
+    color: var(--primary);
+    background-color: var(--gray-100);
+    text-decoration: none; /* Σιγουρευόμαστε ότι δεν βγάζει υπογράμμιση */
+}
+
+.view-history-link i {
+    margin-right: 5px;
+}

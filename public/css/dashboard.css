@@ -1,0 +1,219 @@
+/* ==========================================================================
+   Main Content Body Layout
+   ========================================================================== */
+.content-body {
+    padding: 30px;
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+    margin-bottom: 35px;
+    border-bottom: 1px solid var(--gray-200);
+    padding-bottom: 20px;
+}
+
+.dashboard-header h1 {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: var(--secondary);
+    letter-spacing: -0.02em;
+}
+
+.dashboard-header .text-muted {
+    font-size: 0.95rem;
+    margin-top: 5px;
+}
+
+/* ==========================================================================
+   Stats Cards (Top Row)
+   ========================================================================== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: var(--white);
+    padding: 25px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    border-color: var(--gray-200);
+}
+
+.stat-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    flex-shrink: 0;
+}
+
+/* Icon Variants */
+.bg-primary-light { background: rgba(52, 152, 219, 0.12); color: var(--primary); }
+.bg-success-light { background: rgba(39, 174, 96, 0.12); color: var(--success); }
+.bg-warning-light { background: rgba(243, 156, 18, 0.12); color: var(--warning); }
+
+.stat-content { display: flex; flex-direction: column; gap: 2px; }
+.stat-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+.stat-value { font-size: 1.75rem; font-weight: 800; color: var(--secondary); line-height: 1; }
+
+/* ==========================================================================
+   Dashboard Main Grid (Cards)
+   ========================================================================== */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 25px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.btn-link {
+    font-size: 0.85rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+
+.btn-link:hover {
+    background-color: var(--gray-100);
+    color: var(--primary-dark);
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.badge-success {
+    background-color: #e6fffa;
+    color: var(--success);
+    border: 1px solid rgba(39, 174, 96, 0.2);
+}
+
+/* ==========================================================================
+   Audit Logs Styling
+   ========================================================================== */
+.logs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.log-item {
+    padding: 16px;
+    background: var(--gray-100);
+    border-radius: var(--radius);
+    transition: background 0.2s;
+}
+
+.log-item:hover { background: #f0f2f5; }
+
+.log-main { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+
+.log-event {
+    font-size: 0.6rem;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: var(--gray-200);
+    color: var(--secondary);
+}
+
+/* Event Specific Colors */
+.event-meeting_scheduled { background: #fff8e1; color: #f57f17; border: 1px solid rgba(245, 127, 23, 0.1); }
+.event-stage_changed     { background: #e1f5fe; color: #0288d1; }
+.event-email_sent       { background: #e3f2fd; color: #1976d2; }
+.event-status_changed    { background: #fff3e0; color: #e65100; }
+.event-note_added       { background: #f3e5f5; color: #7b1fa2; }
+.event-assigned         { background: #e8f5e9; color: #2e7d32; }
+.event-created          { background: #e0f7fa; color: #00838f; }
+.event-updated          { background: #f1f8e9; color: #558b2f; }
+.event-deleted          { background: #ffebee; color: #c62828; }
+.event-payment_received { background: #e8f5e9; color: #2e7d32; }
+.event-call_completed   { background: #e0f2f1; color: #00796b; }
+.event-task_overdue     { background: #fbe9e7; color: #d84315; }
+
+.log-desc { font-size: 0.95rem; color: var(--secondary); font-weight: 500; }
+
+.log-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-left: 2px;
+}
+
+.divider { color: var(--gray-300); margin: 0 4px; }
+
+.log-type {
+    background: var(--gray-300);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 1100px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    .content-body {
+        padding: 20px;
+    }
+}

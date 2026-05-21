@@ -1,0 +1,165 @@
+/* ==========================================================================
+   MODULE: EDIT/CREATE FORMS
+   Σκοπός: Styling για τις φόρμες επεξεργασίας και δημιουργίας.
+   Βασίζεται στις μεταβλητές του global style.css.
+   ========================================================================== */
+
+/* ==========================================================================
+   1. FORM LAYOUT & SPACING
+   Σκοπός: Η οργάνωση των πεδίων μέσα στην κάρτα.
+   ========================================================================== */
+.form-standard {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* ==========================================================================
+   HEADER META INFO
+   ========================================================================== */
+.header-divider {
+    color: var(--gray-300);
+    margin: 0 5px;
+}
+
+.company-context {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--gray-100);
+    padding: 2px 10px;
+    border-radius: var(--radius-sm);
+}
+
+.company-context i {
+    color: var(--primary);
+    font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   2. INPUTS & SELECTS
+   Σκοπός: Ενιαίο styling για όλα τα διαδραστικά στοιχεία εισαγωγής.
+   ========================================================================== */
+.form-control,
+.form-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: var(--secondary);
+    background-color: var(--white);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+}
+
+/* Hover & Focus States */
+.form-control:hover,
+.form-select:hover {
+    border-color: var(--gray-400);
+}
+
+.form-control:focus,
+.form-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+    background-color: var(--white);
+}
+
+/* Disabled State */
+.form-control:disabled,
+.form-select:disabled {
+    background-color: var(--gray-50);
+    color: var(--gray-500);
+    cursor: not-allowed;
+}
+
+/* ==========================================================================
+   3. LABELS & FEEDBACK
+   Σκοπός: Τυπογραφία για λεζάντες και μηνύματα σφάλματος.
+   ========================================================================== */
+.form-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Validation States (Laravel Integration) */
+.form-control.is-invalid,
+.form-select.is-invalid {
+    border-color: var(--danger);
+}
+
+.form-control.is-invalid:focus {
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.15);
+}
+
+.invalid-feedback {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--danger);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ==========================================================================
+   4. FORM ACTIONS
+   Σκοπός: Η στοίχιση των κουμπιών στο τέλος της φόρμας.
+   ========================================================================== */
+.form-actions {
+    display: flex;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-100);
+}
+
+.flex-end { justify-content: flex-end; }
+.gap-3    { gap: 0.75rem; }
+
+/* ==========================================================================
+   5. SPECIAL COMPONENTS (Helper Text)
+   Σκοπός: Μικρές λεπτομέρειες και επεξηγήσεις κάτω από τα inputs.
+   ========================================================================== */
+.form-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.form-text i {
+    color: var(--primary);
+    margin-right: 4px;
+}
+
+/* ==========================================================================
+   6. RESPONSIVE ADJUSTMENTS
+   ========================================================================== */
+@media (max-width: 640px) {
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .form-actions button,
+    .form-actions a {
+        width: 100%;
+        justify-content: center;
+    }
+}
